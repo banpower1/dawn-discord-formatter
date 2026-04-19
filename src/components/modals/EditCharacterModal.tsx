@@ -55,8 +55,8 @@ export const EditCharacterModal = ({
   const [keystoneLevel, setKeystoneLevel] = useState(character?.keystone.level ?? 12)
   const [keystoneDungeon, setKeystoneDungeon] = useState<DungeonId>(
     dungeonExists(character?.keystone.dungeon)
-      ? (character?.keystone.dungeon ?? DungeonId.Ara)
-      : DungeonId.Ara
+      ? (character?.keystone.dungeon ?? Object.values(DungeonId)[0])
+      : Object.values(DungeonId)[0]
   )
   const [tradeAllArmor, setTradeAllArmor] = useState(character?.tradeAllArmor ?? true)
   const [cantTrade, setCantTrade] = useState(character?.cantTrade ?? [])
@@ -74,8 +74,8 @@ export const EditCharacterModal = ({
     setKeystoneLevel(character?.keystone.level ?? 12)
     setKeystoneDungeon(
       dungeonExists(character?.keystone.dungeon)
-        ? (character?.keystone.dungeon ?? DungeonId.Ara)
-        : DungeonId.Ara
+        ? (character?.keystone.dungeon ?? Object.values(DungeonId)[0])
+        : Object.values(DungeonId)[0]
     )
     setTradeAllArmor(character?.tradeAllArmor ?? true)
     setCantTrade(character?.cantTrade ?? [])
