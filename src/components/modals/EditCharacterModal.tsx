@@ -184,6 +184,14 @@ export const EditCharacterModal = ({
       if (raiderio.class == 'Shaman' && raiderio.active_spec_name == 'Restoration') {
         setSpecs([Spec.RestorationShaman])
       }
+
+      if (raiderio.class == 'Paladin' && raiderio.active_spec_name == 'Protection') {
+        setSpecs([Spec.ProtectionPaladin])
+      }
+
+      if (raiderio.class == 'Warrior' && raiderio.active_spec_name == 'Protection') {
+        setSpecs([Spec.ProtectionWarrior])
+      }
     } catch (error) {
       console.error('Some error occurred:', error)
     }
