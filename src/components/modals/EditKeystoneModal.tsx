@@ -34,13 +34,13 @@ export const EditKeystoneModal = ({
   const [keystoneAvailable, setKeystoneAvailable] = useState(initialKeystoneAvailable)
   const [level, setLevel] = useState(initialLevel)
   const [dungeon, setDungeon] = useState<DungeonId>(
-    dungeonExists(initialDungeon) ? initialDungeon : DungeonId.Ara
+    dungeonExists(initialDungeon) ? initialDungeon : Object.values(DungeonId)[0]
   )
 
   useEffect(() => {
     if (open) {
       setLevel(initialLevel)
-      setDungeon(dungeonExists(initialDungeon) ? initialDungeon : DungeonId.Ara)
+      setDungeon(dungeonExists(initialDungeon) ? initialDungeon : Object.values(DungeonId)[0])
       setKeystoneAvailable(initialKeystoneAvailable)
     }
   }, [open, initialLevel, initialDungeon])

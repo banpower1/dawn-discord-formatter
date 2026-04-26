@@ -1,28 +1,28 @@
 import { useTranslation } from 'react-i18next'
 
 export enum DungeonId {
-  Ara = 'Ara', // Ara-Kara, City of Echoes
-  Dawn = 'Dawn', // The Dawnbreaker
-  Eco = 'Eco', // Eco-Dome Al’dani
-  HoA = 'HoA', // Halls of Atonement
-  Flood = 'Flood', // Operation: Floodgate
-  Priory = 'Priory', // Priory of the Sacred Flame
-  TazaSW = 'TazaSW', // Tazavesh: Streets of Wonder
-  TazaSG = 'TazaSG', // Tazavesh: So’leah’s Gambit
+  Academy = 'Academy', // Algeth'ar Academy
+  Caverns = 'Caverns', // Maisara Caverns
+  Magisters = 'Magisters', // Magisters' Terrace
+  Nexus = 'Nexus', // Nexus-Point Xenas
+  Pit = 'Pit', // Pit of Saron
+  Seat = 'Seat', // Seat of the Triumvirate
+  Skyreach = 'Skyreach', // Skyreach
+  Spire = 'Spire', // Windrunner Spire
 }
 
 export function useDungeonTranslations(): Record<DungeonId, string> {
   const { t } = useTranslation()
 
   return {
-    [DungeonId.Ara]: t('dungeon.araKara', 'Ara-Kara, City of Echoes'),
-    [DungeonId.Dawn]: t('dungeon.dawnbreaker', 'The Dawnbreaker'),
-    [DungeonId.Eco]: t('dungeon.ecoDome', 'Eco-Dome Al’dani'),
-    [DungeonId.HoA]: t('dungeon.hallsOfAtonement', 'Halls of Atonement'),
-    [DungeonId.Flood]: t('dungeon.flood', 'Operation: Floodgate'),
-    [DungeonId.Priory]: t('dungeon.priory', 'Priory of the Sacred Flame'),
-    [DungeonId.TazaSW]: t('dungeon.tazaveshStreets', 'Tazavesh: Streets of Wonder'),
-    [DungeonId.TazaSG]: t('dungeon.tazaveshGambit', 'Tazavesh: So’leah’s Gambit'),
+    [DungeonId.Academy]: t('dungeon.academy', "Algeth'ar Academy"),
+    [DungeonId.Caverns]: t('dungeon.caverns', 'Maisara Caverns'),
+    [DungeonId.Magisters]: t('dungeon.magisters', "Magisters' Terrace"),
+    [DungeonId.Nexus]: t('dungeon.nexus', 'Nexus-Point Xenas'),
+    [DungeonId.Pit]: t('dungeon.pit', 'Pit of Saron'),
+    [DungeonId.Seat]: t('dungeon.seat', 'Seat of the Triumvirate'),
+    [DungeonId.Skyreach]: t('dungeon.skyreach', 'Skyreach'),
+    [DungeonId.Spire]: t('dungeon.spire', 'Windrunner Spire'),
   }
 }
 export enum LegacyDungeonId {
