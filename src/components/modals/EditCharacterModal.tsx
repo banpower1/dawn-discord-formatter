@@ -1,5 +1,5 @@
 import { Dialog, Field, Label, Switch } from '@headlessui/react'
-import { X } from 'lucide-react'
+import { DownloadCloud, X } from 'lucide-react'
 import { useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 
@@ -125,6 +125,70 @@ export const EditCharacterModal = ({
     handleClose(mode == 'create')
   }
 
+  const fetchRaiderio = async () => {
+    try {
+      // Pull name+realm from input fields
+      const name: string = (document.getElementById('char-name') as HTMLInputElement)?.value
+      const realm: string = (document.getElementById('char-realm') as HTMLInputElement)?.value
+      if (name.length == 0 || realm.length == 0) {
+        return
+      }
+
+      // Fetch raiderio
+      const url: string = `https://raider.io/api/v1/characters/profile?region=eu&realm=${realm}&name=${name.replaceAll(' ', '')}&fields=mythic_plus_scores_by_season:current,gear`
+      const resp = await fetch(url)
+      if (!resp.ok) {
+        return
+      }
+      const raiderio = await resp.json()
+
+      // Set Score
+      setRioScore(Math.floor(raiderio.mythic_plus_scores_by_season[0].scores.all))
+
+      // Set iLvl
+      setIlvl(Math.floor(raiderio.gear.item_level_equipped))
+
+      // Set faction (Capitalize to match Faction)
+      const rio_faction: keyof typeof Faction = (raiderio.faction[0].toUpperCase() +
+        raiderio.faction.slice(1)) as keyof typeof Faction
+      setFaction(Faction[rio_faction])
+
+      // Set Class (Some classes share spec names, and needs a quick custom fix)
+      const rio_class: keyof typeof Class = raiderio.class.replaceAll(' ', '')
+      setCharClass(Class[rio_class])
+
+      const rio_spec: keyof typeof Spec = raiderio.active_spec_name.replaceAll(' ', '')
+      console.log(rio_spec)
+      setSpecs([Spec[rio_spec]])
+
+      if (raiderio.class == 'Mage' && raiderio.active_spec_name == 'Frost') {
+        setSpecs([Spec.FrostMage])
+      }
+
+      if (raiderio.class == 'Death Knight' && raiderio.active_spec_name == 'Frost') {
+        setSpecs([Spec.Frost])
+      }
+
+      if (raiderio.class == 'Priest' && raiderio.active_spec_name == 'Holy') {
+        setSpecs([Spec.HolyPriest])
+      }
+
+      if (raiderio.class == 'Paladin' && raiderio.active_spec_name == 'Holy') {
+        setSpecs([Spec.HolyPaladin])
+      }
+
+      if (raiderio.class == 'Druid' && raiderio.active_spec_name == 'Restoration') {
+        setSpecs([Spec.RestorationDruid])
+      }
+
+      if (raiderio.class == 'Shaman' && raiderio.active_spec_name == 'Restoration') {
+        setSpecs([Spec.RestorationShaman])
+      }
+    } catch (error) {
+      console.error('Some error occurred:', error)
+    }
+  }
+
   return (
     <Dialog open={open} onClose={() => handleClose(true)} className="relative z-50">
       <div className="fixed inset-0 bg-black/60" aria-hidden="true" />
@@ -160,6 +224,15 @@ export const EditCharacterModal = ({
               onChange={(e) => setRealm(e.target.value)}
               required={true}
             />
+            <button
+              onClick={fetchRaiderio}
+              className="card-button rounded-xl border border-zinc-700 bg-zinc-800/60 text-zinc-200
+                       hover:border-blue-400 hover:bg-blue-500/20
+                       focus:outline-none focus:ring-2 focus:ring-blue-500
+                       transition-colors duration-150 cursor-pointer self-center"
+            >
+              <DownloadCloud className="w-6 h-6" />
+            </button>
           </div>
 
           <FloatingInput
